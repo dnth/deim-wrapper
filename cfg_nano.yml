@@ -54,7 +54,7 @@ DFINETransformer:
 HGNetv2:
   freeze_at: -1
   freeze_norm: false
-  local_model_dir: ../RT-DETR-main/D-FINE/weight/hgnetv2/
+  local_model_dir: RT-DETR-main/D-FINE/weight/hgnetv2/
   name: B0
   pretrained: true
   return_idx:

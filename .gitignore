@@ -1,6 +1,8 @@
 # deim outputs
 deim_outputs/
 
+*.pth
+
 # pixi environments
 .pixi
 *.egg-info
