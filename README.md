@@ -1,6 +1,6 @@
 # DEIM Wrapper
 
-A wrapper for the DEIM model.
+A wrapper for the [DEIM](https://github.com/ShihuaHuang95/DEIM) model.
 
 ## Installation
 
@@ -24,6 +24,12 @@ Edit the `cfg_nano.yml` file to point to the data you want to train on.
 
 ## Run Training
 
+Nano model
 ```
-pixi run train
+pixi run train_nano
+```
+
+Small model
+```
+pixi run train_small
 ```

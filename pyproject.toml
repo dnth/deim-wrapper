@@ -23,7 +23,7 @@ torch = { version = "==2.5.1", index = "https://download.pytorch.org/whl/cu124" 
 torchvision = { version = "==0.20.1", index = "https://download.pytorch.org/whl/cu124" }
 
 [tool.pixi.tasks]
-train = { cmd = [
+train_nano = { cmd = [
     "CUDA_VISIBLE_DEVICES=0",
     "torchrun",
     "--master_port=7777",
@@ -31,6 +31,16 @@ train = { cmd = [
     "DEIM/train.py",
     "-c",
     "cfg_nano.yml",
-    "--use-amp",
-    "--seed=0"
+    "--use-amp"
+] }
+
+train_small= { cmd = [
+    "CUDA_VISIBLE_DEVICES=0",
+    "torchrun",
+    "--master_port=7777",
+    "--nproc_per_node=1",
+    "DEIM/train.py",
+    "-c",
+    "cfg_small.yml",
+    "--use-amp"
 ] }
