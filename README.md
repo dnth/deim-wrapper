@@ -33,3 +33,10 @@ Small model
 ```
 pixi run train_small
 ```
+
+## Export ONNX
+
+Export ONNX with specific model and checkpoint
+```
+pixi run export_onnx -c cfg_small.yml -r outputs/deim_hgnetv2_s_coco/last.pth -o outputs/deim_hgnetv2_s_coco/last.onnx
+```
