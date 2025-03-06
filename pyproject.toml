@@ -23,3 +23,14 @@ torch = { version = "==2.5.1", index = "https://download.pytorch.org/whl/cu124" 
 torchvision = { version = "==0.20.1", index = "https://download.pytorch.org/whl/cu124" }
 
 [tool.pixi.tasks]
+train = { cmd = [
+    "CUDA_VISIBLE_DEVICES=0",
+    "torchrun",
+    "--master_port=7777",
+    "--nproc_per_node=1",
+    "DEIM/train.py",
+    "-c",
+    "cfg_nano.yml",
+    "--use-amp",
+    "--seed=0"
+] }
