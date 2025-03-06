@@ -40,3 +40,15 @@ Export ONNX with specific model and checkpoint
 ```
 pixi run export_onnx -c cfg_small.yml -r outputs/deim_hgnetv2_s_coco/last.pth -o outputs/deim_hgnetv2_s_coco/last.onnx
 ```
+
+## Live Inference
+
+```
+pixi run live_inference --onnx outputs/deim_hgnetv2_s_coco/last.onnx --webcam --class-names outputs/deim_hgnetv2_s_coco/classes.txt
+```
+
+## Gradio Demo
+
+```
+pixi run launch_demo
+```
