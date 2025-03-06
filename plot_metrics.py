@@ -30,12 +30,14 @@ def plot_metrics(data, output_dir='.'):
     
     # Create figure with multiple subplots
     fig = make_subplots(
-        rows=2, cols=2,
+        rows=3, cols=2,
         subplot_titles=(
             'Training Loss', 
             'Component Losses', 
             'Learning Rate', 
-            'Component Losses (Detail)'
+            'AP @IoU=0.50:0.95',
+            'AR @IoU=0.50:0.95',
+            ''  # Empty placeholder for layout balance
         )
     )
     
@@ -76,23 +78,48 @@ def plot_metrics(data, output_dir='.'):
         row=2, col=1
     )
     
-    # Plot 4: Detailed Component Losses (Auxiliary)
-    loss_mal_aux_0 = [entry.get('train_loss_mal_aux_0') for entry in data if 'train_loss_mal_aux_0' in entry]
-    loss_bbox_aux_0 = [entry.get('train_loss_bbox_aux_0') for entry in data if 'train_loss_bbox_aux_0' in entry]
+    # Plot 4: mAP 50:95
+    map_values = []
+    map_epochs = []
     
-    fig.add_trace(
-        go.Scatter(x=epochs, y=loss_mal_aux_0, mode='lines', name='MAL Aux 0', line=dict(color='pink')),
-        row=2, col=2
-    )
-    fig.add_trace(
-        go.Scatter(x=epochs, y=loss_bbox_aux_0, mode='lines', name='BBox Aux 0', line=dict(color='lightgreen')),
-        row=2, col=2
-    )
+    # Plot 5: AR @IoU=0.50:0.95
+    ar_values = []
+    ar_epochs = []
+    
+    for i, entry in enumerate(data):
+        if 'test_coco_eval_bbox' in entry and entry['test_coco_eval_bbox']:
+            try:
+                # Extract the first value (mAP 50:95) from the test_coco_eval_bbox list
+                map_value = entry['test_coco_eval_bbox'][0]
+                map_values.append(map_value)
+                map_epochs.append(epochs[i])
+                
+                # Extract the 7th value (AR @IoU=0.50:0.95) from the test_coco_eval_bbox list
+                if len(entry['test_coco_eval_bbox']) >= 7:
+                    ar_value = entry['test_coco_eval_bbox'][6]  # 7th value (index 6)
+                    ar_values.append(ar_value)
+                    ar_epochs.append(epochs[i])
+            except (IndexError, TypeError):
+                continue
+    
+    if map_values:
+        fig.add_trace(
+            go.Scatter(x=map_epochs, y=map_values, mode='lines+markers', 
+                      name='AP @IoU=0.50:0.95', line=dict(color='darkblue'), marker=dict(size=8)),
+            row=2, col=2
+        )
+    
+    if ar_values:
+        fig.add_trace(
+            go.Scatter(x=ar_epochs, y=ar_values, mode='lines+markers', 
+                      name='AR @IoU=0.50:0.95', line=dict(color='darkred'), marker=dict(size=8)),
+            row=3, col=1
+        )
     
     # Update layout
     fig.update_layout(
         title_text='Training Metrics',
-        height=800,
+        height=1000,
         width=1200,
         showlegend=True
     )
@@ -102,11 +129,13 @@ def plot_metrics(data, output_dir='.'):
     fig.update_xaxes(title_text='Epoch', row=1, col=2)
     fig.update_xaxes(title_text='Epoch', row=2, col=1)
     fig.update_xaxes(title_text='Epoch', row=2, col=2)
+    fig.update_xaxes(title_text='Epoch', row=3, col=1)
     
     fig.update_yaxes(title_text='Loss', row=1, col=1)
     fig.update_yaxes(title_text='Loss', row=1, col=2)
     fig.update_yaxes(title_text='Learning Rate', row=2, col=1)
-    fig.update_yaxes(title_text='Loss', row=2, col=2)
+    fig.update_yaxes(title_text='AP', row=2, col=2)
+    fig.update_yaxes(title_text='AR', row=3, col=1)
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
