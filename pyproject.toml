@@ -62,3 +62,9 @@ live_inference = { cmd = [
     "live_inference.py"
 ]}
 
+[tool.pixi.feature.gpu.pypi-dependencies]
+onnxruntime-gpu = "==1.19.2"
+
+[tool.pixi.environments]
+gpu-env = ["gpu"]
+

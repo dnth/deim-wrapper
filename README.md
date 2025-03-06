@@ -47,6 +47,12 @@ pixi run export_onnx -c cfg_small.yml -r outputs/deim_hgnetv2_s_coco/last.pth -o
 pixi run live_inference --onnx outputs/deim_hgnetv2_s_coco/last.onnx --webcam --class-names outputs/deim_hgnetv2_s_coco/classes.txt
 ```
 
+GPU
+
+```
+pixi run -e gpu-env live_inference --onnx outputs/deim_hgnetv2_s_coco/last.onnx --webcam --class-names outputs/deim_hgnetv2_s_coco/classes.txt --gpu 
+```
+
 ## Gradio Demo
 
 ```
