@@ -156,8 +156,8 @@ train_dataloader:
     stop_epoch: 148
     type: BatchImageCollateFunction
   dataset:
-    ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_train.json
-    img_folder: /home/dnth/Desktop/DEIM/dataset/images/train
+    ann_file: /home/dnth/Downloads/Rock Paper Scissors SXSW.v14i.coco/train/_annotations.coco.json
+    img_folder: /home/dnth/Downloads/Rock Paper Scissors SXSW.v14i.coco/train
     return_masks: false
     transforms:
       mosaic_prob: 0.5
@@ -213,7 +213,7 @@ train_dataloader:
   drop_last: true
   num_workers: 4
   shuffle: true
-  total_batch_size: 8
+  total_batch_size: 16
   type: DataLoader
 use_amp: true
 use_ema: true
@@ -222,8 +222,8 @@ val_dataloader:
   collate_fn:
     type: BatchImageCollateFunction
   dataset:
-    ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_val.json
-    img_folder: /home/dnth/Desktop/DEIM/dataset/images/valid
+    ann_file: /home/dnth/Downloads/Rock Paper Scissors SXSW.v14i.coco/valid/_annotations.coco.json
+    img_folder: /home/dnth/Downloads/Rock Paper Scissors SXSW.v14i.coco/valid
     return_masks: false
     transforms:
       ops:
@@ -239,6 +239,6 @@ val_dataloader:
   drop_last: false
   num_workers: 4
   shuffle: false
-  total_batch_size: 8
+  total_batch_size: 16
   type: DataLoader
 warmup_iter: 2000

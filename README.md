@@ -38,7 +38,7 @@ pixi run train_small
 
 Export ONNX with specific model and checkpoint
 ```
-pixi run export_onnx -c cfg_small.yml -r outputs/deim_hgnetv2_s_coco/last.pth -o outputs/deim_hgnetv2_s_coco/last.onnx
+pixi run export_onnx -c cfg_small.yml -r outputs/deim_hgnetv2_s_coco/last.pth
 ```
 
 ## Live Inference
@@ -57,4 +57,10 @@ pixi run -e gpu-env live_inference --onnx outputs/deim_hgnetv2_s_coco/last.onnx 
 
 ```
 pixi run launch_demo
+```
+
+## Plot Metrics
+
+```
+pixi run plot_metrics --log-file outputs/deim_hgnetv2_n_coco/log.txt
 ```
