@@ -132,11 +132,11 @@ yaml_cfg:
   PostProcessor:
     num_top_queries: 300
   __include__:
-  - ./dfine_hgnetv2_s_coco.yml
-  - ../base/deim.yml
+  - DEIM/configs/deim_dfine/dfine_hgnetv2_s_coco.yml
+  - DEIM/configs/base/deim.yml
   checkpoint_freq: 4
   clip_max_norm: 0.1
-  config: configs/deim_dfine/deim_hgnetv2_s_coco.yml
+  config: DEIM/configs/deim_dfine/deim_hgnetv2_s_coco.yml
   criterion: DEIMCriterion
   ema:
     decay: 0.9999
@@ -145,8 +145,8 @@ yaml_cfg:
     warmups: 1000
   epoches: 132
   eval_spatial_size:
-  - 640
-  - 640
+  - 320
+  - 320
   evaluator:
     iou_types:
     - bbox
@@ -193,7 +193,7 @@ yaml_cfg:
   test_only: false
   train_dataloader:
     collate_fn:
-      base_size: 640
+      base_size: 320
       base_size_repeat: 20
       ema_restart_decay: 0.9999
       mixup_epochs:
@@ -203,8 +203,8 @@ yaml_cfg:
       stop_epoch: 120
       type: BatchImageCollateFunction
     dataset:
-      ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_train.json
-      img_folder: /home/dnth/Desktop/DEIM/dataset/images/train
+      ann_file: /home/dnth/Downloads/rock_paper_scissors/annotations/instances_train.json
+      img_folder: /home/dnth/Downloads/rock_paper_scissors/train
       return_masks: false
       transforms:
         mosaic_prob: 0.5
@@ -233,8 +233,8 @@ yaml_cfg:
           type: SanitizeBoundingBoxes
         - type: RandomHorizontalFlip
         - size:
-          - 640
-          - 640
+          - 320
+          - 320
           type: Resize
         - min_size: 1
           type: SanitizeBoundingBoxes
@@ -260,7 +260,7 @@ yaml_cfg:
     drop_last: true
     num_workers: 4
     shuffle: true
-    total_batch_size: 8
+    total_batch_size: 32
     type: DataLoader
   use_amp: true
   use_ema: true
@@ -269,14 +269,14 @@ yaml_cfg:
     collate_fn:
       type: BatchImageCollateFunction
     dataset:
-      ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_val.json
-      img_folder: /home/dnth/Desktop/DEIM/dataset/images/valid
+      ann_file: /home/dnth/Downloads/rock_paper_scissors/annotations/instances_val.json
+      img_folder: /home/dnth/Downloads/rock_paper_scissors/valid
       return_masks: false
       transforms:
         ops:
         - size:
-          - 640
-          - 640
+          - 320
+          - 320
           type: Resize
         - dtype: float32
           scale: true
@@ -286,6 +286,6 @@ yaml_cfg:
     drop_last: false
     num_workers: 4
     shuffle: false
-    total_batch_size: 8
+    total_batch_size: 32
     type: DataLoader
   warmup_iter: 2000

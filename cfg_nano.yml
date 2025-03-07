@@ -86,7 +86,7 @@ __include__:
 - DEIM/configs/base/deim.yml
 checkpoint_freq: 4
 clip_max_norm: 0.1
-config: cfg.yml
+# config: cfg.yml
 criterion: DEIMCriterion
 ema:
   decay: 0.9999
@@ -102,7 +102,7 @@ evaluator:
   - bbox
   type: CocoEvaluator
 find_unused_parameters: false
-flat_epoch: 7800
+flat_epoch: 64
 lr_gamma: 1.0
 lr_scheduler:
   gamma: 0.1
@@ -213,7 +213,7 @@ train_dataloader:
   drop_last: true
   num_workers: 4
   shuffle: true
-  total_batch_size: 16
+  total_batch_size: 32
   type: DataLoader
 use_amp: true
 use_ema: true
@@ -239,6 +239,6 @@ val_dataloader:
   drop_last: false
   num_workers: 4
   shuffle: false
-  total_batch_size: 16
+  total_batch_size: 32
   type: DataLoader
 warmup_iter: 2000

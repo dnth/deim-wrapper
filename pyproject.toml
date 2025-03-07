@@ -3,7 +3,7 @@ authors = [{name = "dnth", email = "dickson.neoh@gmail.com"}]
 name = "deim-wrapper"
 requires-python = ">= 3.10, < 3.13"
 version = "0.1.0"
-dependencies = ["pyyaml>=6.0.2,<7", "tensorboard>=2.19.0,<3", "faster-coco-eval>=1.6.5,<2", "calflops>=0.3.2,<0.4", "transformers>=4.49.0,<5", "scipy>=1.15.2,<2", "ipykernel>=6.29.5,<7", "onnx>=1.17.0,<2", "onnxsim>=0.4.36,<0.5", "onnxruntime>=1.20.1,<2", "gradio>=5.20.0,<6", "opencv-python>=4.11.0.86,<5", "kaleido>=0.2.1,<0.3"]
+dependencies = ["pyyaml>=6.0.2,<7", "tensorboard>=2.19.0,<3", "faster-coco-eval>=1.6.5,<2", "calflops>=0.3.2,<0.4", "transformers>=4.49.0,<5", "scipy>=1.15.2,<2", "ipykernel>=6.29.5,<7", "onnx>=1.17.0,<2", "onnxsim>=0.4.36,<0.5", "onnxruntime>=1.20.1,<2", "gradio>=5.20.0,<6", "opencv-python>=4.11.0.86,<5", "kaleido>=0.2.1,<0.3", "dash>=2.18.2,<3"]
 
 [build-system]
 build-backend = "hatchling.build"
@@ -23,6 +23,15 @@ torch = { version = "==2.5.1", index = "https://download.pytorch.org/whl/cu124" 
 torchvision = { version = "==0.20.1", index = "https://download.pytorch.org/whl/cu124" }
 
 [tool.pixi.tasks]
+train = { cmd = [
+    "CUDA_VISIBLE_DEVICES=0",
+    "torchrun",
+    "--master_port=7777",
+    "--nproc_per_node=1",
+    "DEIM/train.py",
+    "--use-amp"
+] }
+
 train_nano = { cmd = [
     "CUDA_VISIBLE_DEVICES=0",
     "torchrun",
@@ -47,7 +56,7 @@ train_small= { cmd = [
 
 plot_metrics = { cmd = [
     "python",
-    "plot_metrics.py"
+    "live_plot_metrics.py"
 ]}
 
 export_onnx = { cmd = [
