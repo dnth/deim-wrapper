@@ -499,7 +499,7 @@ def launch_demo():
     demo = build_interface(MODEL_PATH, CLASS_NAMES_PATH, example_images)
     
     # Launch the demo without the examples parameter
-    demo.launch(share=False)  # Set share=True if you want to create a shareable link
+    demo.launch(share=False, inbrowser=True)  # Set share=True if you want to create a shareable link
 
 
 if __name__ == "__main__":
