@@ -22,17 +22,17 @@ _train_shuffle: null
 _val_shuffle: null
 resume: null
 tuning: null
-epoches: 160
+epoches: 50
 last_epoch: -1
 lrsheduler: flatcosine
 lr_gamma: 0.5
-no_aug_epoch: 12
-warmup_iter: 20
-flat_epoch: 78
+no_aug_epoch: 5
+warmup_iter: 10
+flat_epoch: 30
 use_amp: true
 use_ema: true
 ema_decay: 0.9999
-ema_warmups: 20
+ema_warmups: 10
 sync_bn: true
 clip_max_norm: 0.1
 find_unused_parameters: false
@@ -90,7 +90,7 @@ yaml_cfg:
             normalize: true
         policy:
           name: stop_epoch
-          epoch: [4, 78, 148]
+          epoch: [4, 30, 50]
           ops:
             - Mosaic
             - RandomPhotometricDistort
@@ -104,10 +104,10 @@ yaml_cfg:
       type: BatchImageCollateFunction
       base_size: 640
       base_size_repeat: 20
-      stop_epoch: 148
+      stop_epoch: 45
       ema_restart_decay: 0.9999
       mixup_prob: 0.5
-      mixup_epochs: [4, 78]
+      mixup_epochs: [4, 45]
     total_batch_size: 32
   val_dataloader:
     type: DataLoader
@@ -145,7 +145,7 @@ yaml_cfg:
     decay: 0.9999
     warmups: 1000
     start: 0
-  epoches: 160
+  epoches: 50
   clip_max_norm: 0.1
   optimizer:
     type: AdamW
@@ -159,11 +159,11 @@ yaml_cfg:
     weight_decay: 0.0001
   lr_scheduler:
     type: MultiStepLR
-    milestones: [500]
+    milestones: [50]
     gamma: 0.1
   lr_warmup_scheduler:
     type: LinearWarmup
-    warmup_duration: 500
+    warmup_duration: 50
   model: DEIM
   criterion: DEIMCriterion
   postprocessor: PostProcessor
@@ -176,8 +176,8 @@ yaml_cfg:
   lrsheduler: flatcosine
   lr_gamma: 0.5
   warmup_iter: 20
-  flat_epoch: 78
-  no_aug_epoch: 12
+  flat_epoch: 30
+  no_aug_epoch: 5
   HGNetv2:
     pretrained: true
     local_model_dir: RT-DETR-main/D-FINE/weight/hgnetv2/
