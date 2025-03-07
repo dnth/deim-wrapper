@@ -618,7 +618,7 @@ packages:
 - pypi: .
   name: deim-wrapper
   version: 0.1.0
-  sha256: 42310e896bb5ddbf26e95556d9eacf1833358a57241064e6f3e2bde6eaba29f1
+  sha256: 902814acf4a8b9edd52fe466c902cf24f8f015b75adb045a894be077596b0608
   requires_dist:
   - pyyaml>=6.0.2,<7
   - tensorboard>=2.19.0,<3

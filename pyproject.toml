@@ -32,27 +32,6 @@ train = { cmd = [
     "--use-amp"
 ] }
 
-train_nano = { cmd = [
-    "CUDA_VISIBLE_DEVICES=0",
-    "torchrun",
-    "--master_port=7777",
-    "--nproc_per_node=1",
-    "DEIM/train.py",
-    "-c",
-    "cfg_nano.yml",
-    "--use-amp"
-] }
-
-train_small= { cmd = [
-    "CUDA_VISIBLE_DEVICES=0",
-    "torchrun",
-    "--master_port=7777",
-    "--nproc_per_node=1",
-    "DEIM/train.py",
-    "-c",
-    "cfg_small.yml",
-    "--use-amp"
-] }
 
 plot_metrics = { cmd = [
     "python",

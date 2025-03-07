@@ -3,7 +3,7 @@ task: detection
 output_dir: ./outputs/deim_hgnetv2_n
 config: DEIM/configs/deim_dfine/deim_hgnetv2_n_coco.yml
 __include__: [DEIM/configs/deim_dfine/dfine_hgnetv2_n_coco.yml, DEIM/configs/base/deim.yml]
-seed: 0
+seed: null
 test_only: false
 print_method: builtin
 print_rank: 0
@@ -93,7 +93,7 @@ DEIMCriterion:
     gamma: 2.0
 
 # TRAINING CONFIGURATION
-epoches: 50
+epoches: 30
 clip_max_norm: 0.1
 sync_bn: true
 find_unused_parameters: false
@@ -101,16 +101,16 @@ use_amp: true
 use_ema: true
 lrsheduler: flatcosine
 lr_gamma: 0.1
-warmup_iter: 50
-flat_epoch: 30
-no_aug_epoch: 5
+warmup_iter: 200
+flat_epoch: 15
+no_aug_epoch: 3
 
 # OPTIMIZER SETTINGS
 optimizer:
   type: AdamW
   params:
     - params: "^(?=.*backbone)(?!.*bn).*$"
-      lr: 0.001
+      lr: 0.0005
     - params: "^(?=.*(?:norm|bn)).*$"
       weight_decay: 0.0
   lr: 0.0004
@@ -120,7 +120,7 @@ optimizer:
 # LEARNING RATE SCHEDULING
 lr_scheduler:
   type: MultiStepLR
-  milestones: [50]
+  milestones: [30]
   gamma: 0.1
 
 lr_warmup_scheduler:
@@ -136,7 +136,7 @@ scaler:
 ema:
   type: ModelEMA
   decay: 0.9999
-  warmups: 100
+  warmups: 200
   start: 0
 
 # EVALUATION
@@ -153,8 +153,8 @@ train_dataloader:
   total_batch_size: 32
   dataset:
     type: CocoDetection
-    img_folder: /home/dnth/Desktop/DEIM/dataset/images/train
-    ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_train.json
+    img_folder: /home/dnth/Downloads/rock_paper_scissors/train
+    ann_file: /home/dnth/Downloads/rock_paper_scissors/train/_annotations.coco.json
     return_masks: false
     transforms:
       type: Compose
@@ -215,8 +215,8 @@ val_dataloader:
   total_batch_size: 16
   dataset:
     type: CocoDetection
-    img_folder: /home/dnth/Desktop/DEIM/dataset/images/valid
-    ann_file: /home/dnth/Desktop/DEIM/dataset/images/annotations/instances_val.json
+    img_folder: /home/dnth/Downloads/rock_paper_scissors/valid
+    ann_file: /home/dnth/Downloads/rock_paper_scissors/valid/_annotations.coco.json
     return_masks: false
     transforms:
       type: Compose
